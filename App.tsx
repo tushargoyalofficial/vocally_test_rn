@@ -1,11 +1,18 @@
 import React, { FC, memo, useCallback, useState } from "react";
-import { StyleSheet, View, Dimensions, Pressable } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  Pressable,
+  TextInput,
+} from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 // Map Styles
 import darkMapStyle from "./src/libs/darkMapStyle";
 import lightMapStyle from "./src/libs/lightMapStyle";
+import SearchBar from "./src/components/SearchBar";
 
 const { height, width } = Dimensions.get("window");
 const LATITUDE = 40.74333; // Korea Town, New York, NY 10001
@@ -15,6 +22,9 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * (width / height);
 
 const App: FC = () => {
   const [lightMode, isLightMode] = useState<boolean>(true);
+  const [searchPhrase, setSearchPhrase] = useState("");
+  const [clicked, setClicked] = useState(false);
+  const [fakeData, setFakeData] = useState();
 
   const updateMapStyle = useCallback(() => {
     isLightMode(!lightMode);
@@ -38,7 +48,13 @@ const App: FC = () => {
         loadingIndicatorColor={"black"}
         customMapStyle={lightMode ? lightMapStyle : darkMapStyle}
       />
-      <View style={styles.buttonView}>
+      <View style={styles.searchBoxContainer}>
+        <SearchBar searchPhrase={searchPhrase}
+        setSearchPhrase={setSearchPhrase}
+        clicked={clicked}
+        setClicked={setClicked} />
+      </View>
+      <View style={styles.toggleButtonContainer}>
         <Pressable onPress={updateMapStyle} style={styles.iconBtn}>
           <Ionicons
             name={lightMode ? "ios-cloudy-night" : "sunny"}
@@ -58,7 +74,13 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
-  buttonView: {
+  searchBoxContainer: {
+    position: "absolute",
+    top: "5%",
+    left: 0,
+    right: 0,
+  },
+  toggleButtonContainer: {
     position: "absolute",
     top: "20%",
     right: "5%",
