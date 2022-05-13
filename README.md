@@ -5,7 +5,7 @@
 2. react-native-maps
 3. react-navigation v6
 
-## Development time
+## Total Development time
 Approximatly 3 Hrs
 
 ## Command to run project
