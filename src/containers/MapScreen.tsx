@@ -59,6 +59,15 @@ const MapScreen: FC = () => {
           />
         </Pressable>
       </View>
+      <View style={styles.navigateButtonContainer}>
+        <Pressable onPress={updateMapStyle} style={styles.iconBtn}>
+          <Ionicons
+            name={lightMode ? "navigate" : "navigate-outline"}
+            size={18}
+            color="white"
+          />
+        </Pressable>
+      </View>
       <View style={styles.bottomCardContainer}>
         <Card />
       </View>
@@ -84,18 +93,23 @@ const styles = StyleSheet.create({
     top: "20%",
     right: "5%",
   },
+  navigateButtonContainer: {
+    position: "absolute",
+    top: "26%",
+    right: "5%",
+  },
   iconBtn: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     width: 32,
     height: 32,
-    borderRadius: 14,
+    borderRadius: 16,
     backgroundColor: "grey",
   },
   bottomCardContainer: {
     position: "absolute",
-    bottom: "10%",
+    bottom: "13%",
     left: 0,
     right: 0,
     justifyContent: "center",
